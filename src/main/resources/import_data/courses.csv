@@ -1,0 +1,9 @@
+code,name,credits,max_students,lecturer_code
+CS101,Introduction to Java,4,30,GV001
+MA101,Calculus I,3,25,GV002
+AR101,History of Modern Art,2,20,GV003
+CS102,Data Structures & Algorithms,4,2,GV001
+PH101,General Physics I,4,15,GV005
+CS201,Database Management Systems,3,20,GV006
+CS202,Web Development,3,25,GV004
+MA201,Linear Algebra,3,10,GV002

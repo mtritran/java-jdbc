@@ -1,0 +1,16 @@
+code,name,email,dob,major,gpa
+SV001,Alice Johnson,alice.j@student.edu,2004-02-14,Computer Science,3.60
+SV002,Bob Miller,bob.m@student.edu,2003-09-22,Mathematics,3.10
+SV003,Charlie Davis,charlie.d@student.edu,2005-01-18,Computer Science,3.90
+SV004,David Wilson,david.w@student.edu,2004-06-30,Art,2.80
+SV005,Emma Watson,emma.w@student.edu,2004-04-15,Art,3.50
+SV006,Frank Castle,frank.c@student.edu,2002-11-30,Mathematics,2.90
+SV007,Grace Kelly,grace.k@student.edu,2003-08-12,Computer Science,3.85
+SV008,Harry Potter,harry.p@student.edu,2004-07-31,Physics,3.20
+SV009,Iris West,iris.w@student.edu,2004-10-09,Mathematics,3.40
+SV010,Jack Sparrow,jack.s@student.edu,2003-05-25,Art,2.50
+SV011,Kate Bishop,kate.b@student.edu,2005-03-14,Computer Science,3.70
+SV012,Leo Messi,leo.m@student.edu,2003-06-24,Physics,3.95
+SV013,Mary Jane,mary.j@student.edu,2004-01-20,Art,3.00
+SV014,Ned Leeds,ned.l@student.edu,2005-02-28,Computer Science,3.30
+SV015,Peter Parker,peter.p@student.edu,2004-08-10,Physics,3.80
