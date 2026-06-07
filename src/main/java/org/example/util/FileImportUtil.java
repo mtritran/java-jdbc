@@ -35,9 +35,11 @@ public class FileImportUtil {
             String header = reader.readLine(); // Skip header
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isBlank()) continue;
+                if (line.trim().isBlank())
+                    continue;
                 String[] tokens = line.split(",");
-                if (tokens.length < 5) continue;
+                if (tokens.length < 5)
+                    continue;
 
                 String code = tokens[0].trim();
                 String name = tokens[1].trim();
@@ -64,9 +66,11 @@ public class FileImportUtil {
             String header = reader.readLine(); // Skip header
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isBlank()) continue;
+                if (line.trim().isBlank())
+                    continue;
                 String[] tokens = line.split(",");
-                if (tokens.length < 6) continue;
+                if (tokens.length < 6)
+                    continue;
 
                 String code = tokens[0].trim();
                 String name = tokens[1].trim();
@@ -94,9 +98,11 @@ public class FileImportUtil {
             String header = reader.readLine(); // Skip header
             String line;
             while ((line = reader.readLine()) != null) {
-                if (line.trim().isBlank()) continue;
+                if (line.trim().isBlank())
+                    continue;
                 String[] tokens = line.split(",");
-                if (tokens.length < 5) continue;
+                if (tokens.length < 5)
+                    continue;
 
                 String code = tokens[0].trim();
                 String name = tokens[1].trim();

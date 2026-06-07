@@ -13,6 +13,8 @@ public class DBConnection {
     private static HikariDataSource dataSource;
 
     static {
+        // Set default JVM timezone to Asia/Ho_Chi_Minh to avoid compatibility issues with PostgreSQL in Docker (e.g., Asia/Saigon)
+        java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
         try (InputStream input = DBConnection.class.getClassLoader().getResourceAsStream("application.properties")) {
             Properties prop = new Properties();
             if (input == null) {
@@ -24,7 +26,7 @@ public class DBConnection {
                 config.setJdbcUrl(prop.getProperty("db.url"));
                 config.setUsername(prop.getProperty("db.username"));
                 config.setPassword(prop.getProperty("db.password"));
-                config.setDriverClassName(prop.getProperty("db.driver-class-name"));
+                config.setDriverClassName(prop.getProperty("db.driver-class-name")); // Step 1: Register the JDBC Driver
 
                 config.setMaximumPoolSize(Integer.parseInt(prop.getProperty("db.hikari.maximum-pool-size", "10")));
                 config.setMinimumIdle(Integer.parseInt(prop.getProperty("db.hikari.minimum-idle", "2")));
@@ -43,7 +45,7 @@ public class DBConnection {
         if (dataSource == null) {
             throw new SQLException("Database datasource is not initialized.");
         }
-        return dataSource.getConnection();
+        return dataSource.getConnection(); // Step 2: Established connection to the database
     }
 
     public static void shutdown() {

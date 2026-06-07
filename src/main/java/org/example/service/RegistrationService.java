@@ -82,7 +82,7 @@ public class RegistrationService {
             if (e instanceof SQLException) throw (SQLException) e;
             if (e instanceof RuntimeException) throw (RuntimeException) e;
             throw new RuntimeException("Unexpected error during enrollment: " + e.getMessage(), e);
-        } finally {
+        } finally { // Step 5: Close the connection
             if (conn != null) {
                 try {
                     conn.setAutoCommit(true); // Reset connection state before closing

@@ -79,6 +79,10 @@ public class CLIApp {
                 switch (choice) {
                     case 1 -> {
                         String code = ConsoleInputHelper.readString("Enter student code (e.g. SV016): ");
+                        if (studentService.getStudentByCode(code) != null) {
+                            System.out.println("Error: Student code already exists!");
+                            break;
+                        }
                         String name = ConsoleInputHelper.readString("Enter student name: ");
                         String email = ConsoleInputHelper.readString("Enter student email: ");
                         LocalDate dob = ConsoleInputHelper.readDate("Enter date of birth");
@@ -112,6 +116,10 @@ public class CLIApp {
                     }
                     case 3 -> {
                         String code = ConsoleInputHelper.readString("Enter student code to delete: ");
+                        if (studentService.getStudentByCode(code) == null) {
+                            System.out.println("Error: Student not found.");
+                            break;
+                        }
                         studentService.deleteStudent(code);
                         System.out.println("Student deleted successfully!");
                     }
@@ -156,6 +164,10 @@ public class CLIApp {
                 switch (choice) {
                     case 1 -> {
                         String code = ConsoleInputHelper.readString("Enter lecturer code (e.g. GV007): ");
+                        if (lecturerService.getLecturerByCode(code) != null) {
+                            System.out.println("Error: Lecturer code already exists!");
+                            break;
+                        }
                         String name = ConsoleInputHelper.readString("Enter lecturer name: ");
                         String email = ConsoleInputHelper.readString("Enter lecturer email: ");
                         LocalDate dob = ConsoleInputHelper.readDate("Enter date of birth");
@@ -186,6 +198,10 @@ public class CLIApp {
                     }
                     case 3 -> {
                         String code = ConsoleInputHelper.readString("Enter lecturer code to delete: ");
+                        if (lecturerService.getLecturerByCode(code) == null) {
+                            System.out.println("Error: Lecturer not found.");
+                            break;
+                        }
                         lecturerService.deleteLecturer(code);
                         System.out.println("Lecturer deleted successfully!");
                     }
@@ -230,6 +246,10 @@ public class CLIApp {
                 switch (choice) {
                     case 1 -> {
                         String code = ConsoleInputHelper.readString("Enter course code (e.g. CS203): ");
+                        if (courseService.getCourseByCode(code) != null) {
+                            System.out.println("Error: Course code already exists!");
+                            break;
+                        }
                         String name = ConsoleInputHelper.readString("Enter course name: ");
                         int credits = ConsoleInputHelper.readInt("Enter course credits: ");
                         int capacity = ConsoleInputHelper.readInt("Enter max students capacity: ");
@@ -264,6 +284,10 @@ public class CLIApp {
                     }
                     case 3 -> {
                         String code = ConsoleInputHelper.readString("Enter course code to delete: ");
+                        if (courseService.getCourseByCode(code) == null) {
+                            System.out.println("Error: Course not found.");
+                            break;
+                        }
                         courseService.deleteCourse(code);
                         System.out.println("Course deleted successfully!");
                     }
@@ -296,7 +320,27 @@ public class CLIApp {
     private void registerCourse() {
         System.out.println("\n--- Register Course for Student ---");
         String studentCode = ConsoleInputHelper.readString("Enter student code: ");
+        try {
+            if (studentService.getStudentByCode(studentCode) == null) {
+                System.out.println("Error: Student not found.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Error checking student: " + e.getMessage());
+            return;
+        }
+
         String courseCode = ConsoleInputHelper.readString("Enter course code: ");
+        try {
+            if (courseService.getCourseByCode(courseCode) == null) {
+                System.out.println("Error: Course not found.");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Error checking course: " + e.getMessage());
+            return;
+        }
+
         try {
             registrationService.enrollStudent(studentCode, courseCode);
             System.out.println("Registration successful! Student has been enrolled in the course.");
@@ -360,6 +404,13 @@ public class CLIApp {
                             System.out.println("Enrolled Students list:");
                             students.forEach(s -> System.out.printf(" - %s: %s (%s, GPA: %.2f)\n", s.getCode(), s.getName(), s.getMajor(), s.getGpa()));
                         }
+
+                        String export = ConsoleInputHelper.readString("Do you want to export this report to a file? (yes/no): ");
+                        if (export.equalsIgnoreCase("yes")) {
+                            String fileName = ConsoleInputHelper.readString("Enter file name (e.g., course_report.txt): ");
+                            org.example.util.ReportExporter.exportCourseReport(fileName, course, students);
+                            System.out.println("Report exported successfully to: " + fileName);
+                        }
                     }
                     case 2 -> {
                         String lecturerCode = ConsoleInputHelper.readString("Enter lecturer code: ");
@@ -376,6 +427,13 @@ public class CLIApp {
                             System.out.println("Assigned Courses:");
                             courses.forEach(c -> System.out.printf(" - %s: %s (%d credits, capacity: %d, registered: %d)\n", c.getCode(), c.getName(), c.getCredits(), c.getMaxStudents(), c.getRegisteredCount()));
                         }
+
+                        String export = ConsoleInputHelper.readString("Do you want to export this report to a file? (yes/no): ");
+                        if (export.equalsIgnoreCase("yes")) {
+                            String fileName = ConsoleInputHelper.readString("Enter file name (e.g., lecturer_report.txt): ");
+                            org.example.util.ReportExporter.exportLecturerReport(fileName, lecturer, courses);
+                            System.out.println("Report exported successfully to: " + fileName);
+                        }
                     }
                     case 3 -> {
                         int studentsSize = studentService.getAllStudents().size();
@@ -386,6 +444,13 @@ public class CLIApp {
                         System.out.println(" - Total Students: " + studentsSize);
                         System.out.println(" - Total Lecturers: " + lecturersSize);
                         System.out.println(" - Total Courses: " + coursesSize);
+
+                        String export = ConsoleInputHelper.readString("Do you want to export this report to a file? (yes/no): ");
+                        if (export.equalsIgnoreCase("yes")) {
+                            String fileName = ConsoleInputHelper.readString("Enter file name (e.g., system_statistics.txt): ");
+                            org.example.util.ReportExporter.exportSystemStatistics(fileName, studentsSize, lecturersSize, coursesSize);
+                            System.out.println("Report exported successfully to: " + fileName);
+                        }
                     }
                     case 4 -> { return; }
                     default -> System.out.println("Invalid option.");

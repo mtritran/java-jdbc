@@ -12,7 +12,7 @@ public class CourseDAO {
     public void insert(Course course) throws SQLException {
         String sql = "INSERT INTO courses (code, name, credits, max_students, registered_count, lecturer_code) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+             PreparedStatement ps = conn.prepareStatement(sql)) { // Step 3: Create a PreparedStatement
             ps.setString(1, course.getCode());
             ps.setString(2, course.getName());
             ps.setInt(3, course.getCredits());
@@ -23,7 +23,7 @@ public class CourseDAO {
             } else {
                 ps.setNull(6, Types.VARCHAR);
             }
-            ps.executeUpdate();
+            ps.executeUpdate(); // Step 4: Execute the SQL query
         }
     }
 
